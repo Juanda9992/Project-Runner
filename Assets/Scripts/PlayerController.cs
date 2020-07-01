@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     [Range(380f,400f)] [Header("Altitud del salto")] public float jumpSpeed;
 
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
 
     private void Start() 
     {
