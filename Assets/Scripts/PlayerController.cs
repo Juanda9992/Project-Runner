@@ -42,6 +42,11 @@ public class PlayerController : MonoBehaviour
         {
             Death();
         }    
+        if(other.transform.CompareTag("NoLethal"))
+        {
+            float newSpeed = other.gameObject.GetComponent<movement>().blockSpeed;
+            rb.velocity = new Vector2(newSpeed,rb.velocity.y);
+        }
     }
 
     public void Death() //De momento solo destruye el jugador
