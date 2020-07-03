@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     [Range(380f,400f)] [Header("Altitud del salto")] public float jumpSpeed;
 
     private Rigidbody2D rb;
+    private bool jump;
 
     private void Start() 
     {
@@ -24,11 +25,11 @@ public class PlayerController : MonoBehaviour
             transform.Translate(new Vector2(moveSpeed * Time.deltaTime,0f));
         }
         //Si se oprime el eje vertical positivo, el personaje saltará
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) && jump == true)
         {
             rb.velocity = new Vector2(rb.velocity.x,jumpSpeed * Time.deltaTime);
         }
-        if(rb.velocity.y > 0.5 && !Input.GetKey(KeyCode.Space)) //Si no se oprime la tecla de salto mientras esta en el aiere, el personaje caera mas rapido
+        if(rb.velocity.y > 0.2 && !Input.GetKey(KeyCode.Space) && jump == false) //Si no se oprime la tecla de salto mientras esta en el aiere, el personaje caera mas rapido
         {
             rb.velocity = new Vector2(rb.velocity.x,-8);
         }
@@ -38,15 +39,27 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) 
     {
         //Si colisiona con un bloque el jugador muere
+        if(other.transform.CompareTag("NoLethal"))
+        {
+            jump = true;
+            float newSpeed = other.gameObject.GetComponent<movement>().blockSpeed;
+            rb.velocity = new Vector2(-newSpeed,rb.velocity.y);
+        }
+
         if(other.transform.CompareTag("Block"))
         {
             Death();
-        }    
+        }
+           
+
+    }
+
+    private void OnCollisionExit2D(Collision2D other) 
+    {
         if(other.transform.CompareTag("NoLethal"))
         {
-            float newSpeed = other.gameObject.GetComponent<movement>().blockSpeed;
-            rb.velocity = new Vector2(newSpeed,rb.velocity.y);
-        }
+            jump = false;
+        }    
     }
 
     public void Death() //De momento solo destruye el jugador

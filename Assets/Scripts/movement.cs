@@ -11,4 +11,11 @@ public class movement : MonoBehaviour
         transform.Translate(Vector2.left * blockSpeed * Time.deltaTime);
     }    
 
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.transform.name == "DestructionCollider")
+        {
+            Destroy(gameObject);
+        }    
+    }
 }

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Block
+  - NoLethal
+  - LethalBlock
   layers:
   - Default
   - TransparentFX
