@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) 
     {
         //Si colisiona con un bloque el jugador muere
-        if(other.transform.CompareTag("NoLethal"))
+        if(other.transform.CompareTag("NoLethal") || other.transform.name == "Ground")
         {
             jump = true;
             float newSpeed = other.gameObject.GetComponent<movement>().blockSpeed;
