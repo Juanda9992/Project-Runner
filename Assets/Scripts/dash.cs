@@ -4,7 +4,6 @@ public class dash : MonoBehaviour
 {
     public float dashTime;
     private string direction = "Right";
-    float speed = 30;
     float currentDash;
 
     private void Start() 

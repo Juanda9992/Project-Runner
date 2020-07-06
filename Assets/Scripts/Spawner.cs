@@ -30,9 +30,12 @@ public class Spawner : MonoBehaviour
     }
     public void Create()
     {
-        Vector2 position = spawnPoint[randomIndex].GetComponent<Transform>().position;
+        Vector2 position = spawnPoint[randomIndex].GetComponent<Transform>().position; //Se obtiene la posicion del puntio de spawneo elegido
 
-        Instantiate(blocks[randomObject],position,Quaternion.identity);
+        Instantiate(blocks[randomObject],position,Quaternion.identity); 
+        //Se instancia un bloque al azar de la lista de bloques en una pocision al azar de una lista de posiciones
+
+        //Se reinicia el tiempo y se vuelve a elegiur un bloque al azar y una posicion al azar
         currentTime = maxTime;
         currentTime = maxTime;
         randomIndex = Random.Range(0,spawnPoint.Length);

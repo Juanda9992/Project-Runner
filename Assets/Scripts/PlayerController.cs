@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool jump;
+    [SerializeField] public int score;
 
     private void Start() 
     {
@@ -38,14 +39,15 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D other) 
     {
-        //Si colisiona con un bloque el jugador muere
-        if(other.transform.CompareTag("NoLethal") || other.transform.name == "Ground")
+        
+        if(other.transform.CompareTag("NoLethal")) //Si esta encima de un bloque no letal, el personaje podra saltar
         {
             jump = true;
             float newSpeed = other.gameObject.GetComponent<movement>().blockSpeed;
             rb.velocity = new Vector2(-newSpeed,rb.velocity.y);
-        }
 
+        }
+        //Si colisiona con un bloque letal el jugador muere
         if(other.transform.CompareTag("Block"))
         {
             Death();
@@ -56,14 +58,19 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other) 
     {
-        if(other.transform.CompareTag("NoLethal"))
+        if(other.transform.CompareTag("NoLethal")) //Si deja de estar en contacto con un bloque no letal, el jugador no popdra saltar 
         {
             jump = false;
         }    
     }
-
     public void Death() //De momento solo destruye el jugador
     {
         Destroy(this.gameObject);
+    }
+
+    public void setScore(int newScore) //Esta funcion suma el puntaje del bloque tocado al puntaje del jugador
+    {
+        score += newScore;
+        Debug.Log("Has chocado con algo y el puntaje es de  " + score.ToString());
     }
 }

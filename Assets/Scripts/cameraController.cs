@@ -10,8 +10,8 @@ public class cameraController : MonoBehaviour
 
     float zoom;
     float cameraSize;
-    // Start is called before the first frame update
-    void Start()
+
+    void Start() //Aqui se obtiene la camara y se ajusta el nivel del zoom
     {
         cam = cam.GetComponent<Camera>();
         zoom = 5;
@@ -19,19 +19,22 @@ public class cameraController : MonoBehaviour
         cameraSize = zoom;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
+        //Si se oprime el eje x negativo, camara hara un efecto zoom in
         if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             zoom -= Time.deltaTime;
             cameraSize = Mathf.Clamp(zoom,minRange,maxRange);
         }
+        //Si se oprime el eje x positivo, camara hara un efecto zoom out
         if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             zoom += Time.deltaTime;
             cameraSize = Mathf.Clamp(zoom,minRange,maxRange);
         }  
+        //Si no se oprime ninguna tecla, el zoom volvera a la normalidad
         if(!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A))
         {
             cameraSize = Mathf.Clamp(zoom,4,6);
@@ -45,6 +48,5 @@ public class cameraController : MonoBehaviour
             }
         }        
         cam.orthographicSize = cameraSize;
-        Debug.Log(cameraSize);
     }
 }
