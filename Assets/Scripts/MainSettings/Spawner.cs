@@ -6,21 +6,23 @@ public class Spawner : MonoBehaviour
 {
     public Transform[] spawnPoint = new Transform[7];
     public GameObject[] blocks = new GameObject[2];
-    public float maxTime;
+    [HideInInspector] public float maxTime;
 
     int randomIndex;
     float currentTime;
     int randomObject;
-    // Start is called before the first frame update
-    void Start()
+
+
+
+    void Start() //Este metodo obtiene la variable de tiempo de otro script, ademas define el primer bloque con su respectiva pocision
     {
+        maxTime = GameObject.FindGameObjectWithTag("Main").GetComponent<DificultSetter>().maxTime;
         currentTime = maxTime;
         randomIndex = Random.Range(0,spawnPoint.Length);
         randomObject = Random.Range(0,blocks.Length);
     }
 
-    // Update is called once per frame
-    void Update()
+    void Update() //Crea un bloque en un lugar aleatorio cada cierto tiempo
     {
         currentTime -= Time.deltaTime;
         if(currentTime <= 0)

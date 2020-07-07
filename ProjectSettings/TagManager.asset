@@ -7,6 +7,9 @@ TagManager:
   - Block
   - NoLethal
   - LethalBlock
+  - Score
+  - Render
+  - Main
   layers:
   - Default
   - TransparentFX

@@ -43,17 +43,17 @@ public class PlayerController : MonoBehaviour
         if(other.transform.CompareTag("NoLethal")) //Si esta encima de un bloque no letal, el personaje podra saltar
         {
             jump = true;
-            float newSpeed = other.gameObject.GetComponent<movement>().blockSpeed;
-            rb.velocity = new Vector2(-newSpeed,rb.velocity.y);
-
         }
         //Si colisiona con un bloque letal el jugador muere
         if(other.transform.CompareTag("Block"))
         {
             Death();
         }
-           
-
+    }
+    private void OnCollisionStay2D(Collision2D other) //Se cambia la velocidad a ña del bloque con el que colisiona
+    {
+        float newSpeed = other.gameObject.GetComponent<movement>().blockSpeed;
+        rb.velocity = new Vector2(-newSpeed,rb.velocity.y);
     }
 
     private void OnCollisionExit2D(Collision2D other) 

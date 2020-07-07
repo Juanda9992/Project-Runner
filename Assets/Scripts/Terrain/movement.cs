@@ -2,7 +2,7 @@
 
 public class movement : MonoBehaviour 
 {
-    public float blockSpeed; //La velocidad de los bloques
+    [SerializeField] public float blockSpeed; //La velocidad de los bloques
     public int points;
     public bool active;
 
@@ -10,6 +10,9 @@ public class movement : MonoBehaviour
     {
         this.active = false;
         Destroy(gameObject,15);
+
+        blockSpeed = GameObject.FindGameObjectWithTag("Main").GetComponent<DificultSetter>().currentSpeed; //Obtiene la velocidad del script del objeto Main
+        InvokeRepeating("LookForSpeed",1,5);//Cada 5 segundos actualizara la velocidad
     }
     private void FixedUpdate()
     {
@@ -24,6 +27,11 @@ public class movement : MonoBehaviour
             other.gameObject.GetComponent<PlayerController>().setScore(this.points);
             active = true;
         }    
+    }
+
+    private void LookForSpeed()
+    {
+        blockSpeed = GameObject.FindGameObjectWithTag("Main").GetComponent<DificultSetter>().currentSpeed; //Actualiza la velocidad para estar a la misma velocidad de los otros bloques
     }
 
 }
