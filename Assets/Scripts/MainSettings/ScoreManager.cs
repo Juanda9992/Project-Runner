@@ -16,12 +16,10 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update() //Cambia el texto al valor del puintaje del personaje
     { 
-        currentScore = player.GetComponent<PlayerController>().score;
-        scoreText.text = "Score: " + currentScore.ToString();
-
-        if(player == null)
+        if(player != null)
         {
-            Debug.Log("Has muerto");
+            currentScore = player.GetComponent<PlayerController>().score;
+            scoreText.text = "Score: " + currentScore.ToString();
         }
     }
 }

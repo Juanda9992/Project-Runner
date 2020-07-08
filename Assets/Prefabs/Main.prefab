@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2773275612209866317}
   - component: {fileID: 2773275612209866316}
   - component: {fileID: 2773275612209866323}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,3 +103,4 @@ MonoBehaviour:
   speedChange: 0
   delayTime: 0
   currentSpeed: 10
+  maxTime: 0

@@ -36,14 +36,32 @@ public class PlayerController : MonoBehaviour
         }
 
         Mathf.Clamp(rb.velocity.y,-20,10);//Limita la velocidad en y para evitar bugs de fisicas
+        
+        RaycastHit2D hit = Physics2D.Raycast(transform.position,-transform.up,0.8f,1 << 8); //RayCast para detectar colisiones
+        Debug.DrawRay(transform.position,-transform.up * 0.8f,Color.red,1f);
+        Debug.Log(jump);
+        if(hit)
+        {
+            jump = true;
+        }
+        if(!hit && !Input.GetKey(KeyCode.Space))
+        {
+            rb.gravityScale = 3;
+
+        }
+        else
+        {
+            rb.gravityScale = 0.9f;
+        }
+        if(!hit)
+        {
+            jump = false;
+        }
     }
     private void OnCollisionEnter2D(Collision2D other) 
     {
         
-        if(other.transform.CompareTag("NoLethal")) //Si esta encima de un bloque no letal, el personaje podra saltar
-        {
-            jump = true;
-        }
+
         //Si colisiona con un bloque letal el jugador muere
         if(other.transform.CompareTag("Block"))
         {
@@ -52,17 +70,10 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D other) //Se cambia la velocidad a ña del bloque con el que colisiona
     {
-        float newSpeed = other.gameObject.GetComponent<movement>().blockSpeed;
+        float newSpeed = other.gameObject.GetComponent<movement>().blockSpeed + 0.5f;
         rb.velocity = new Vector2(-newSpeed,rb.velocity.y);
     }
 
-    private void OnCollisionExit2D(Collision2D other) 
-    {
-        if(other.transform.CompareTag("NoLethal")) //Si deja de estar en contacto con un bloque no letal, el jugador no popdra saltar 
-        {
-            jump = false;
-        }    
-    }
     public void Death() //De momento solo destruye el jugador
     {
         Destroy(this.gameObject);
