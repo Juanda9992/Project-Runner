@@ -37,25 +37,28 @@ public class PlayerController : MonoBehaviour
 
         Mathf.Clamp(rb.velocity.y,-20,10);//Limita la velocidad en y para evitar bugs de fisicas
         
-        RaycastHit2D hit = Physics2D.Raycast(transform.position,-transform.up,0.8f,1 << 8); //RayCast para detectar colisiones
-        Debug.DrawRay(transform.position,-transform.up * 0.8f,Color.red,1f);
-        Debug.Log(jump);
-        if(hit)
+        RaycastHit2D hit = Physics2D.Raycast(transform.position,-transform.up,0.8f,1 << 8); //RayCast para detectar colisiones hacia abajo
+        RaycastHit2D hitRight = Physics2D.Raycast(new Vector2(transform.position.x + 0.3f,transform.position.y),-transform.up,0.8f,1 << 8);
+        RaycastHit2D hitLeft = Physics2D.Raycast(new Vector2(transform.position.x - 0.3f,transform.position.y),-transform.up,0.8f,1 << 8);
+        Debug.DrawRay(transform.position,-transform.up * 0.8f,Color.red,1f); //Debug dekl rayo
+
+        if(hit || hitLeft || hitRight) //Si el rayo golpea, es porque esta encima de algo y podra saltar
         {
             jump = true;
+            Debug.Log(hit.collider.name);
         }
-        if(!hit && !Input.GetKey(KeyCode.Space))
+        if(!hit && !hitRight && !hitLeft && !Input.GetKey(KeyCode.Space)) //Si no esta debajo de algo, aumentara su gravedad
         {
             rb.gravityScale = 3;
 
         }
         else
         {
-            rb.gravityScale = 0.9f;
+            rb.gravityScale = 0.9f; //De lo contrario, seguira normal
         }
-        if(!hit)
+        if(!hit && !hitLeft && !hitRight)
         {
-            jump = false;
+            jump = false; //Si no golpea nada, no podra saltar
         }
     }
     private void OnCollisionEnter2D(Collision2D other) 
@@ -70,13 +73,22 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D other) //Se cambia la velocidad a ña del bloque con el que colisiona
     {
-        float newSpeed = other.gameObject.GetComponent<movement>().blockSpeed + 0.5f;
+        float newSpeed = other.gameObject.GetComponent<movement>().blockSpeed + 0.1f;
         rb.velocity = new Vector2(-newSpeed,rb.velocity.y);
+    }
+    private void OnTriggerExit2D(Collider2D other) 
+    {
+        if(other.transform.CompareTag("Render"))
+        {
+            
+            Death();
+
+        }    
     }
 
     public void Death() //De momento solo destruye el jugador
-    {
-        Destroy(this.gameObject);
+    {   GameObject main = GameObject.FindGameObjectWithTag("Main");
+        main.GetComponent<Levels>().Restart();    
     }
 
     public void setScore(int newScore) //Esta funcion suma el puntaje del bloque tocado al puntaje del jugador
