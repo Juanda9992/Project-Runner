@@ -9,7 +9,7 @@ public class Spawner : MonoBehaviour
     [HideInInspector] public float maxTime;
 
     int randomIndex;
-    float currentTime;
+    float currentTime = 0;
     int randomObject;
 
 
@@ -17,7 +17,6 @@ public class Spawner : MonoBehaviour
     void Start() //Este metodo obtiene la variable de tiempo de otro script, ademas define el primer bloque con su respectiva pocision
     {
         maxTime = GameObject.FindGameObjectWithTag("Main").GetComponent<DificultSetter>().maxTime;
-        currentTime = maxTime;
         randomIndex = Random.Range(0,spawnPoint.Length);
         randomObject = Random.Range(0,blocks.Length);
     }

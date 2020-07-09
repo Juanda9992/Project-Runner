@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && jump == true)
         {
             rb.velocity = new Vector2(rb.velocity.x,jumpSpeed * Time.deltaTime);
+            Debug.Log("HAs saltado");
         }
         if(rb.velocity.y > 0.2 && !Input.GetKey(KeyCode.Space) && jump == false) //Si no se oprime la tecla de salto mientras esta en el aiere, el personaje caera mas rapido
         {
@@ -37,17 +38,23 @@ public class PlayerController : MonoBehaviour
 
         Mathf.Clamp(rb.velocity.y,-20,10);//Limita la velocidad en y para evitar bugs de fisicas
         
-        RaycastHit2D hit = Physics2D.Raycast(transform.position,-transform.up,0.8f,1 << 8); //RayCast para detectar colisiones hacia abajo
         RaycastHit2D hitRight = Physics2D.Raycast(new Vector2(transform.position.x + 0.3f,transform.position.y),-transform.up,0.8f,1 << 8);
         RaycastHit2D hitLeft = Physics2D.Raycast(new Vector2(transform.position.x - 0.3f,transform.position.y),-transform.up,0.8f,1 << 8);
-        Debug.DrawRay(transform.position,-transform.up * 0.8f,Color.red,1f); //Debug dekl rayo
+        Debug.DrawRay(new Vector2(transform.position.x - 0.3f,transform.position.y),Vector2.down * 0.8f,Color.red,1);
 
-        if(hit || hitLeft || hitRight) //Si el rayo golpea, es porque esta encima de algo y podra saltar
+        if(hitLeft || hitRight) //Si el rayo golpea, es porque esta encima de algo y podra saltar
         {
-            jump = true;
-            Debug.Log(hit.collider.name);
+            if(hitRight)
+            {
+                jump = true;                
+            }
+            else if(hitLeft)
+            {
+                jump = true;       
+            }
+            
         }
-        if(!hit && !hitRight && !hitLeft && !Input.GetKey(KeyCode.Space)) //Si no esta debajo de algo, aumentara su gravedad
+        if(!hitRight && !hitLeft && !Input.GetKey(KeyCode.Space)) //Si no esta debajo de algo, aumentara su gravedad
         {
             rb.gravityScale = 3;
 
@@ -56,7 +63,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.gravityScale = 0.9f; //De lo contrario, seguira normal
         }
-        if(!hit && !hitLeft && !hitRight)
+        if(!hitLeft && !hitRight)
         {
             jump = false; //Si no golpea nada, no podra saltar
         }
@@ -73,8 +80,9 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D other) //Se cambia la velocidad a ña del bloque con el que colisiona
     {
-        float newSpeed = other.gameObject.GetComponent<movement>().blockSpeed + 0.1f;
+        float newSpeed = other.gameObject.GetComponentInParent<newMovement>().speed;
         rb.velocity = new Vector2(-newSpeed,rb.velocity.y);
+        Debug.Log("Tu velocidad es de: " + rb.velocity.x);
     }
     private void OnTriggerExit2D(Collider2D other) 
     {

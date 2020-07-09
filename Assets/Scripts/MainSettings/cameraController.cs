@@ -2,7 +2,7 @@
 
 public class cameraController : MonoBehaviour
 {
-    public Camera cam;
+    Camera cam;
     public float maxRange;
     public float minRange;
 
@@ -10,15 +10,13 @@ public class cameraController : MonoBehaviour
 
     float zoom;
     float cameraSize;
-    Transform offset;
-
     void Start() //Aqui se obtiene la camara y se ajusta el nivel del zoom
     {
-        cam = cam.GetComponent<Camera>();
+        cam = Camera.main;
+        
         zoom = 5;
         cam.orthographicSize = zoom;
         cameraSize = zoom;
-        offset = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
 
@@ -37,13 +35,13 @@ public class cameraController : MonoBehaviour
             zoom += Time.deltaTime;
         }  
         //Si no se oprime ninguna tecla, el zoom volvera a la normalidad
-        if(!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) && zoom !=5)
+        if(!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) && zoom !=defaultRange)
         {
-            if(zoom < 5)
+            if(zoom < defaultRange)
             {
                 zoom +=  Time.deltaTime;
             }
-            if(zoom > 5)
+            if(zoom > defaultRange)
             {
                 zoom -=  Time.deltaTime;
             }
