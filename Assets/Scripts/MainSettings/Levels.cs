@@ -10,7 +10,7 @@ public class Levels : MonoBehaviour
     #region PrivateStuff
     private static GameObject _main;
     #endregion
-    private void Start() 
+    private void Start() //Hace este objeto un Singleton
     {
         if(_main == null)
         {
@@ -24,12 +24,18 @@ public class Levels : MonoBehaviour
 
 
     }
-    public void Restart()
+    public void Restart() //Este metodo Rainicia la escena
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); //Carga escena actual
         DontDestroyOnLoad(gameObject);
+
+        GetComponent <DificultSetter>().ResetStats();
+        GetComponent<Spawner>().Optimize();
+        GetComponent<cameraController>().FInd();
         
     }
+
+
 
     
 

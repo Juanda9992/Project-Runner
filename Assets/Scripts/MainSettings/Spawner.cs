@@ -7,9 +7,8 @@ public class Spawner : MonoBehaviour
     public Transform[] spawnPoint = new Transform[7];
     public GameObject[] blocks = new GameObject[2];
     [HideInInspector] public float maxTime;
-
     int randomIndex;
-    float currentTime = 0;
+    float currentTime = 1;
     int randomObject;
 
 
@@ -23,24 +22,30 @@ public class Spawner : MonoBehaviour
 
     void Update() //Crea un bloque en un lugar aleatorio cada cierto tiempo
     {
-        currentTime -= Time.deltaTime;
         if(currentTime <= 0)
         {
             Create();
         }
+        currentTime -= Time.deltaTime;   
+        Debug.Log("El tiempo es de" + currentTime +"Y el maximo es de" + maxTime);     
     }
-    public void Create()
+
+    private void Create()
     {
-        Vector2 position = spawnPoint[randomIndex].GetComponent<Transform>().position; //Se obtiene la posicion del puntio de spawneo elegido
+        currentTime = maxTime; //Se reinicia el contador
 
-        Instantiate(blocks[randomObject],position,Quaternion.identity); 
-        //Se instancia un bloque al azar de la lista de bloques en una pocision al azar de una lista de posiciones
+        Transform position = spawnPoint[randomIndex].transform; //Se obtiene la posicion del punto de spawn
 
-        //Se reinicia el tiempo y se vuelve a elegiur un bloque al azar y una posicion al azar
-        currentTime = maxTime;
-        currentTime = maxTime;
-        randomIndex = Random.Range(0,spawnPoint.Length);
-        randomObject = Random.Range(0,blocks.Length);
+        Instantiate(blocks[randomObject],position); //Instancia un bloque aleatorio
+        randomIndex = Random.Range(0,spawnPoint.Length); //
+        randomObject = Random.Range(0,blocks.Length);//Se selecciona un bloque al azar
 
     }
+
+    public void Optimize() //Al reiniciar la escena se ejecuta este metodo para destruir la estructura actial
+    {   
+        
+        Destroy(blocks[randomObject]);
+    }
+
 }

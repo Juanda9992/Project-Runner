@@ -22,31 +22,38 @@ public class cameraController : MonoBehaviour
 
     void Update()
     {
-        cameraSize = Mathf.Clamp(zoom,minRange,maxRange);
-        //Si se oprime el eje x negativo, camara hara un efecto zoom in
-        if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        if(cam != null)
         {
-            zoom -= Time.deltaTime;
-            
+                cameraSize = Mathf.Clamp(zoom,minRange,maxRange);
+            //Si se oprime el eje x negativo, camara hara un efecto zoom in
+            if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            {
+                zoom -= Time.deltaTime;
+            }
+            //Si se oprime el eje x positivo, camara hara un efecto zoom out
+            if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            {
+                zoom += Time.deltaTime;
+            }  
+            //Si no se oprime ninguna tecla, el zoom volvera a la normalidad
+            if(!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) && zoom !=defaultRange)
+            {
+                if(zoom < defaultRange)
+                {
+                    zoom +=  Time.deltaTime;
+                }
+                if(zoom > defaultRange)
+                {
+                    zoom -=  Time.deltaTime;
+                }
+            }        
+            cam.orthographicSize = cameraSize;
         }
-        //Si se oprime el eje x positivo, camara hara un efecto zoom out
-        if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-        {
-            zoom += Time.deltaTime;
-        }  
-        //Si no se oprime ninguna tecla, el zoom volvera a la normalidad
-        if(!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) && zoom !=defaultRange)
-        {
-            if(zoom < defaultRange)
-            {
-                zoom +=  Time.deltaTime;
-            }
-            if(zoom > defaultRange)
-            {
-                zoom -=  Time.deltaTime;
-            }
-        }        
-        cam.orthographicSize = cameraSize;
+        
 
+    }
+    public void FInd()
+    {
+        cam = Camera.main;
     }
 }

@@ -11,6 +11,7 @@ TagManager:
   - Render
   - Main
   - Ground
+  - Bounce
   layers:
   - Default
   - TransparentFX
