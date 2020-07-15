@@ -32,6 +32,7 @@ public class Levels : MonoBehaviour
         GetComponent <DificultSetter>().ResetStats();
         GetComponent<Spawner>().Optimize();
         GetComponent<cameraController>().FInd();
+        Time.timeScale = 0f;
         
     }
 
