@@ -39,6 +39,7 @@ public class Spawner : MonoBehaviour
         Instantiate(blocks[randomObject],position); //Instancia un bloque aleatorio
         randomIndex = Random.Range(0,spawnPoint.Length); //
         randomObject = Random.Range(0,blocks.Length);//Se selecciona un bloque al azar
+        maxTime = GameObject.FindGameObjectWithTag("Main").GetComponent<DificultSetter>().maxTime; //Establece el nuevo tiempo
 
     }
 

@@ -43,9 +43,9 @@ public class PlayerController : MonoBehaviour
         Mathf.Clamp(rb.velocity.y,-20,10);//Limita la velocidad en y para evitar bugs de fisicas
         
         #region RayCasting
-        RaycastHit2D hitRight = Physics2D.Raycast(new Vector2(transform.position.x + 0.3f,transform.position.y),-transform.up,0.8f,1 << 8);
-        RaycastHit2D hitLeft = Physics2D.Raycast(new Vector2(transform.position.x - 0.3f,transform.position.y),-transform.up,0.8f,1 << 8);
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x,transform.position.y),-transform.up,5f,1 << 8);
+        RaycastHit2D hitRight = Physics2D.Raycast(new Vector2(transform.position.x + 0.32f,transform.position.y),-transform.up,0.86f,1 << 8);
+        RaycastHit2D hitLeft = Physics2D.Raycast(new Vector2(transform.position.x - 0.32f,transform.position.y),-transform.up,0.86f,1 << 8);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x,transform.position.y),-transform.up,8f,1 << 8);
         Debug.DrawRay(new Vector2(transform.position.x - 0.3f,transform.position.y),Vector2.down * 0.8f,Color.red,1);
 
         if(hitLeft || hitRight) //Si el rayo golpea, es porque esta encima de algo y podra saltar

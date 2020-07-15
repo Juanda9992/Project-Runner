@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class pauseMenu : MonoBehaviour 
 {
@@ -35,5 +36,14 @@ public class pauseMenu : MonoBehaviour
         pauseObject.SetActive(true);
         Time.timeScale = 0f; //Se congela el tiempo
         pause = true;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+    public void mainMenu()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
     }
 }

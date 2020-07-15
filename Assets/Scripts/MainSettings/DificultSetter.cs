@@ -40,7 +40,7 @@ public class DificultSetter : MonoBehaviour
     public void SetDificult() //Esye metodo aumenta la dificultas aumentando la velocidad de los bloques y disminuyendo el radio de spawneo
     {
         currentSpeed += speedChange;
-        maxTime -= 0.05f;
+        maxTime -= 0.08f;
     }
 
     public void ResetStats()
