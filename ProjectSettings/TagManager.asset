@@ -12,6 +12,7 @@ TagManager:
   - Main
   - Ground
   - Bounce
+  - mainGui
   layers:
   - Default
   - TransparentFX

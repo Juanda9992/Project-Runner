@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
     int randomIndex;
     float currentTime = 1;
     int randomObject;
+    int lastNumber;
 
 
 
@@ -33,20 +34,16 @@ public class Spawner : MonoBehaviour
     private void Create()
     {
         currentTime = maxTime; //Se reinicia el contador
-
+        Debug.LogWarning(randomObject);
         Transform position = spawnPoint[randomIndex].transform; //Se obtiene la posicion del punto de spawn
 
-        Instantiate(blocks[randomObject],position); //Instancia un bloque aleatorio
+        Instantiate(blocks[randomObject],position.position,Quaternion.identity); //Instancia un bloque aleatorio
         randomIndex = Random.Range(0,spawnPoint.Length); //
         randomObject = Random.Range(0,blocks.Length);//Se selecciona un bloque al azar
         maxTime = GameObject.FindGameObjectWithTag("Main").GetComponent<DificultSetter>().maxTime; //Establece el nuevo tiempo
 
-    }
-
-    public void Optimize() //Al reiniciar la escena se ejecuta este metodo para destruir la estructura actial
-    {   
+        lastNumber = randomObject;
         
-        Destroy(blocks[randomObject]);
-    }
 
+    }
 }

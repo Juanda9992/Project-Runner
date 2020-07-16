@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
     public void Death() //De momento solo destruye el jugador
     {   GameObject main = GameObject.FindGameObjectWithTag("Main");
-        main.GetComponent<Levels>().Restart();    
+        main.GetComponent<Levels>().Restart();
     }
 
     public void setScore(int newScore) //Esta funcion suma el puntaje del bloque tocado al puntaje del jugador

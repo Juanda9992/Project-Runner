@@ -9,6 +9,7 @@ public class Levels : MonoBehaviour
 
     #region PrivateStuff
     private static GameObject _main;
+
     #endregion
     private void Start() //Hace este objeto un Singleton
     {
@@ -30,16 +31,10 @@ public class Levels : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         GetComponent <DificultSetter>().ResetStats();
-        GetComponent<Spawner>().Optimize();
         GetComponent<cameraController>().FInd();
         Time.timeScale = 0f;
         
     }
-
-
-
-    
-
     #region Methods
     #endregion
 }

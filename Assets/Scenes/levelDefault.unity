@@ -1563,6 +1563,8 @@ MonoBehaviour:
   - {fileID: 2123009171130461437, guid: b2d7e185a645a6c4fa84330dcd3fd0c3, type: 3}
   - {fileID: 8061025879248032229, guid: 5854644445cdeef4399d665c18ce3ed7, type: 3}
   - {fileID: 7566009719507521051, guid: 801d1142714a8d647ba496999f42452b, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
   maxTime: 1.01
 --- !u!4 &2056255966
 Transform:
@@ -1621,7 +1623,7 @@ PrefabInstance:
     - target: {fileID: 2150540230538542013, guid: ad03840dafe62d94baab4aa628413ea7,
         type: 3}
       propertyPath: speedChange
-      value: 0.08
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2150540230538542014, guid: ad03840dafe62d94baab4aa628413ea7,
         type: 3}
@@ -1851,7 +1853,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 6200000, guid: fd41b773d99c4e042831aced41218a02, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 7112665271643677870, guid: 75a13e730923f2b45936d8d8b3924d34,
         type: 3}
       propertyPath: m_Constraints

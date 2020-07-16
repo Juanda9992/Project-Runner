@@ -13,21 +13,20 @@ public class pauseMenu : MonoBehaviour
 
     private void Update() //Se espera que el jugador presione Esc para poner pausa, si ya esta en pausa, de despausara
     {
-        if(!gameStarted)
+        if(!gameStarted)//Si el juego no ha iniciado
         {
-            if(Input.anyKeyDown)
+            if(Input.anyKeyDown)//Y se presiona una tecla cualquiera
             {
                 StartGame();
-                panel.SetActive(false);
+                panel.SetActive(false); //Se inicia el juego y se desactiva el panel de muerte
             }
             else
             {
-                Time.timeScale = 0f;
+                Time.timeScale = 0f;//Hasta que no se pulse un boton, el juego se congela
             }
 
-        }
-                
-        if(Input.GetKeyDown(KeyCode.Escape))
+        }         
+        if(Input.GetKeyDown(KeyCode.Escape)) //Si se pulsa la tecla Esc, se pausa el juego
         {
             if(pause)
             {
@@ -41,7 +40,7 @@ public class pauseMenu : MonoBehaviour
         }    
     }    
 
-    public void Resume()
+    public void Resume()//Quita el modo pausa y se reestablece el juego
     {
         pauseObject.SetActive(false);
         Time.timeScale = 1f; //El tiempo vuelve a la normalidad
@@ -56,23 +55,24 @@ public class pauseMenu : MonoBehaviour
         pause = true;
     }
 
-    public void Quit()
+    public void Quit()//Cierra la aplicacion
     {
         Application.Quit();
     }
-    public void mainMenu()
+    public void mainMenu()//LLeva el jugador al menu principal
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
     }
 
-    public void StartGame()
+    public void StartGame()//Cuando se oprima una tecla, el juego comienza
     {
         Time.timeScale = 1f;
         gameStarted = true;
     }
 
-    private void OnEnable() 
+    private void OnEnable() //Cuando se reinicia la escena, se activa el panel de inicio
     {
         gameStarted = false;    
     }
+
 }
