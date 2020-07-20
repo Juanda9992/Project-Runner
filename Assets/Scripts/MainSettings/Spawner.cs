@@ -27,14 +27,12 @@ public class Spawner : MonoBehaviour
         {
             Create();
         }
-        currentTime -= Time.deltaTime;   
-        Debug.Log("El tiempo es de" + currentTime +"Y el maximo es de" + maxTime);     
+        currentTime -= Time.deltaTime;    
     }
 
     private void Create()
     {
         currentTime = maxTime; //Se reinicia el contador
-        Debug.LogWarning(randomObject);
         Transform position = spawnPoint[randomIndex].transform; //Se obtiene la posicion del punto de spawn
 
         Instantiate(blocks[randomObject],position.position,Quaternion.identity); //Instancia un bloque aleatorio
