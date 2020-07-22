@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private float xAxis;
-    private bool jump;
+    [HideInInspector] public bool jump;
 
     public LayerMask ground;
     public Transform groundPos;
@@ -19,8 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start() 
     {
-        rb = GetComponent<Rigidbody2D>(); //Rigidbody para hacer el salto    
-        
+        rb = GetComponent<Rigidbody2D>(); //Rigidbody para hacer el salto     
 
     }    
     private void FixedUpdate()
@@ -54,10 +53,12 @@ public class PlayerController : MonoBehaviour
             RayCasting();
         }
         
-        if(rb.velocity.y > 0.2 && !Input.GetKey(KeyCode.Space))
+        if(rb.velocity.y > 1 && !Input.GetKey(KeyCode.Space))
         {
             rb.velocity = new Vector2(rb.velocity.x, -10);
         }
+        Debug.LogWarning(jump);
+        
 
     }
     private void OnCollisionEnter2D(Collision2D other) 

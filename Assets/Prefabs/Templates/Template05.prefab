@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5377341546942739290}
   - component: {fileID: 3195491018176989908}
+  - component: {fileID: -8683738070033369902}
   m_Layer: 8
   m_Name: Template05
   m_TagString: Untagged
@@ -77,6 +78,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
+--- !u!114 &-8683738070033369902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6077363926481944437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f72ca01007a0b904ea39047031117712, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destructionTime: 15
 --- !u!1001 &533804508711611984
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,19 +3,23 @@ using System.Collections;
 public class destructible : MonoBehaviour 
 {
     [Range(0.1f,2.5f)] public float time; //Timpo a destruir el objeto
+    Animator animator;
 
+    private void Start() 
+    {
+        animator = GetComponent<Animator>();    
+    }
     private void OnCollisionEnter2D(Collision2D other) 
     {
         if(other.transform.CompareTag("Player")) //Si toca al jugaodr, este iniciara el proceso de destruccion
         {
-            StartCoroutine(destroy(time));
+            animator.SetBool("hasCollider", true);
         }    
     }
-    public IEnumerator destroy(float time) //Se destruye en el tiempo establecido por el objeto mismo
-    {
-        yield return new WaitForSeconds(time);
 
-        Destroy(gameObject);
+    public void AutoDestroy()
+    {
+        Destroy(this.gameObject);
     }
-    
+
 }
