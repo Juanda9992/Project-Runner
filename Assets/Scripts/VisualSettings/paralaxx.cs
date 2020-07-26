@@ -12,6 +12,6 @@ public class paralaxx : MonoBehaviour
     }
     private void Update() 
     {
-        render.material.mainTextureOffset = new Vector2(Time.time * speed, 0);
+        render.material.mainTextureOffset = new Vector2(Time.time * speed, 0); //Se aplica elmefecto parallax al fondo
     }
 }

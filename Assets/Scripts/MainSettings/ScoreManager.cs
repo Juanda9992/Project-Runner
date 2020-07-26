@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviour
     { 
         if(player != null)
         {
-            bool jump = player.GetComponent<PlayerController>().jump;
+            
             currentScore = player.GetComponent<PlayerController>().score;
             scoreText.text = "Score: " + currentScore.ToString();
         }

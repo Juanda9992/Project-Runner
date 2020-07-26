@@ -11,7 +11,9 @@ public class Levels : MonoBehaviour
     private static GameObject _main;
 
     #endregion
-    private void Start() //Hace este objeto un Singleton
+
+    #region  Singleton
+    private void Start() //Hace este objeto un Singleton al recargar o cambiar entre escenas
     {
         if(_main == null)
         {
@@ -22,11 +24,13 @@ public class Levels : MonoBehaviour
         {
             Destroy(this);
         }
+    #endregion
 
 
     }
     public void Restart() //Este metodo Rainicia la escena
     {
+        audioPlayer.PlaySound("death");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); //Carga escena actual
         DontDestroyOnLoad(gameObject);
 

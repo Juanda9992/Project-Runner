@@ -3,10 +3,10 @@
 public class cameraController : MonoBehaviour
 {
     Camera cam;
-    public float maxRange;
-    public float minRange;
+    public float maxRange; [Header("Zoom maximo de la camara")]
+    public float minRange; [Header("Zoom minimo de la camara")]
 
-    public float defaultRange;
+    public float defaultRange; [Header ("Zoom por defecto de la camara")]
 
     float zoom;
     float cameraSize;

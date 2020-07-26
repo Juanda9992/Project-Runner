@@ -9,6 +9,7 @@ public class coin : MonoBehaviour
         if(other.transform.CompareTag("Player")) //Si toca al jugador, s destruye el objeto y suma el puntaje 
         {
             other.gameObject.GetComponent<PlayerController>().setScore(this.score);
+            audioPlayer.PlaySound("coin");
             Destroy(this.gameObject);
         }    
     }    

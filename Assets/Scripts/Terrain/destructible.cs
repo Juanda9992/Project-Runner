@@ -19,6 +19,7 @@ public class destructible : MonoBehaviour
 
     public void AutoDestroy()
     {
+        audioPlayer.PlaySound("crack");
         Destroy(this.gameObject);
     }
 

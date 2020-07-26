@@ -2,21 +2,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour 
 {
-    public float moveSpeed;
-    [Range(380f,400f)] [Header("Altitud del salto")] public float jumpSpeed;
+
+    #region  Components&Variables
+    [Header("Velocidad de movimiento")] public float moveSpeed;
+    [Range(500,650)] [Header("Altitud del salto")] public float jumpSpeed;
 
     private Rigidbody2D rb;
     private float xAxis;
-    [HideInInspector] public bool jump;
 
-    public LayerMask ground;
-    public Transform groundPos;
-
-    public float circleRadius;
     [HideInInspector] public int score;
 
-    private bool inWall; 
+    float worldSpeed;
 
+    public GameObject main;
+    #endregion
+
+    #region UnityMethods
     private void Start() 
     {
         rb = GetComponent<Rigidbody2D>(); //Rigidbody para hacer el salto     
@@ -25,11 +26,11 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         xAxis = Input.GetAxis("Horizontal");
-        jump = Physics2D.OverlapCircle(groundPos.position,circleRadius,ground);
 
-        if(xAxis > 0)
+        if(xAxis > 0) //Si el eje X es mayor a 0, el personaje se movera
         {
             MoveRight();
+    
         }
 
         //Mueve hacia la izquierda al pulsar el eje X en negativo
@@ -41,23 +42,18 @@ public class PlayerController : MonoBehaviour
 
         if(xAxis == 0)
         {
-            rb.velocity = new Vector2(-1 * 2, rb.velocity.y);
+            worldSpeed = main.GetComponent<DificultSetter>().currentSpeed;
+            rb.velocity = new Vector2(-worldSpeed - 0.01f, rb.velocity.y); //Si esta quieto, el personaje se movera a la misma velocidad que el mundo
         }
         //Si se oprime el eje vertical positivo, el personaje saltará
-        if(Input.GetKeyDown(KeyCode.Space) && jump == true)
-        {
-            Jump();
-        }    
-        if(Input.GetKey(KeyCode.Space) || xAxis > 0)
-        {
-            RayCasting();
-        }
+ 
         
         if(rb.velocity.y > 1 && !Input.GetKey(KeyCode.Space))
         {
-            rb.velocity = new Vector2(rb.velocity.x, -10);
+            rb.velocity = new Vector2(rb.velocity.x, -5); //Si esta en el aire, no se oprime la tecla espacio y no puede saltar, caera mas rapido
         }
-        Debug.LogWarning(jump);
+
+        
         
 
     }
@@ -74,24 +70,28 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other) 
     {
-        if(other.transform.CompareTag("Render"))
+        if(other.transform.CompareTag("Render")) //Si se sale de la zona segura el personaje morira
         {
             Death();
         }    
     }
+    #endregion
+
+    #region  Methods
 
     public void Death() //De momento solo destruye el jugador
     {   GameObject main = GameObject.FindGameObjectWithTag("Main");
+        audioPlayer.PlaySound("death");
         main.GetComponent<Levels>().Restart();
     }
 
     public void MoveRight()
     {
-        rb.velocity = new Vector2(xAxis * moveSpeed,rb.velocity.y);
+        rb.velocity = new Vector2(xAxis * moveSpeed,rb.velocity.y); //Mueve hacia la derecha
     }
     public void MoveLeft()
     {
-        rb.velocity = new Vector2(xAxis * moveSpeed,rb.velocity.y);
+        rb.velocity = new Vector2(xAxis * moveSpeed,rb.velocity.y); //Mueve hacia la izquierda
     }
 
     public void setScore(int newScore) //Esta funcion suma el puntaje del bloque tocado al puntaje del jugador
@@ -99,25 +99,12 @@ public class PlayerController : MonoBehaviour
         score += newScore;
         Debug.Log("Has chocado con algo y el puntaje es de  " + score.ToString());
     }
+
     public void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x,jumpSpeed * Time.deltaTime);
-    }
-    private void RayCasting()
-    {
-        RaycastHit2D ray = Physics2D.Raycast(transform.position,transform.right,0.5f,ground);
-        Debug.DrawRay(transform.position,transform.right * 0.5f,Color.red,1f);
-        if(ray)
-        {
-            if(!ray.collider.CompareTag("Block") || !ray.collider.CompareTag("Item") && ray.collider.CompareTag("Destructible") )
-            {
-                Debug.Log(ray.collider.name);
-                float newSpeed = ray.collider.GetComponentInParent<newMovement>().speed;
-                rb.velocity = new Vector2((newSpeed + 0.1f / 2) * -1,rb.velocity.y);
-            }
-
-        }
+        rb.velocity = new Vector2 (rb.velocity.x,jumpSpeed * Time.fixedDeltaTime);
     }
 
-    
+
+    #endregion
 }
