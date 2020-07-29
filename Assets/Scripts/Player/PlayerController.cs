@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     float worldSpeed;
 
     public GameObject main;
+    public GameObject particle;
     #endregion
 
     #region UnityMethods
@@ -80,9 +81,12 @@ public class PlayerController : MonoBehaviour
     #region  Methods
 
     public void Death() //De momento solo destruye el jugador
-    {   GameObject main = GameObject.FindGameObjectWithTag("Main");
+    {   
+        Instantiate(particle,transform.position,Quaternion.identity);
+        GameObject main = GameObject.FindGameObjectWithTag("Main");
         audioPlayer.PlaySound("death");
-        main.GetComponent<Levels>().Restart();
+        StartCoroutine(main.GetComponent<Levels>().playerRestart(2));
+        transform.position = transform.right * 100f;
     }
 
     public void MoveRight()
