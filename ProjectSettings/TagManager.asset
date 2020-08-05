@@ -15,6 +15,7 @@ TagManager:
   - mainGui
   - Item
   - Destructible
+  - Spike
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - 
   - 
   - Solids
-  - 
+  - Spikes
   - 
   - 
   - 

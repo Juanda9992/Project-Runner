@@ -10,6 +10,11 @@ public class checkGround : MonoBehaviour
     bool Jump;    
     bool isSpike;
 
+    Animator playerAnimator;
+    private void Start() 
+    {
+        playerAnimator = GetComponent<Animator>();
+    }
     private void Update() 
     {
         Jump = Physics2D.OverlapCircle(groundPosition.position,circleRadius,whatIsGround);
@@ -23,11 +28,17 @@ public class checkGround : MonoBehaviour
 
         if(Jump == false)
         {
+            playerAnimator.SetBool("inAir", true);
             isSpike = Physics2D.OverlapCircle(groundPosition.position,circleRadius,whatIsSpike);
             if(isSpike)
             {
                 GetComponent<PlayerController>().Death();
             }
+        }
+
+        if(Jump)
+        {
+            playerAnimator.SetBool("inAir", false);
         }
 
     }
