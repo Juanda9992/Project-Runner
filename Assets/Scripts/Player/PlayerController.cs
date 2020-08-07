@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
     }
     public void MoveLeft()
     {
-        rb.velocity = new Vector2(xAxis * moveSpeed * 2,rb.velocity.y); //Mueve hacia la izquierda
+        rb.velocity = new Vector2(xAxis * moveSpeed * 1.2f,rb.velocity.y); //Mueve hacia la izquierda
     }
 
     public void setScore(int newScore) //Esta funcion suma el puntaje del bloque tocado al puntaje del jugador

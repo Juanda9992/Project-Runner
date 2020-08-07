@@ -21,4 +21,9 @@ public class mainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(menu);
     }
+    public void GoToScene(string scene)
+    {
+        Debug.Log(scene);
+        SceneManager.LoadScene(scene);
+    }
 }

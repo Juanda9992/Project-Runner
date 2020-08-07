@@ -12,6 +12,8 @@ public class Levels : MonoBehaviour
     #region PrivateStuff
     private static GameObject _main;
 
+    public AudioSource audioSource;
+
     #endregion
 
     #region  Singleton
@@ -33,9 +35,11 @@ public class Levels : MonoBehaviour
 
     public IEnumerator playerRestart(int Timedelay)
     {
+        audioSource.pitch = 0.6f;
         Time.timeScale = 0.5f;
         deathPanel.GetComponent<Animator>().SetBool("PlayerDeath", true);
         yield return new WaitForSeconds(Timedelay);
+        audioSource.Stop();
         Restart();
     }
     public void Restart() //Este metodo Rainicia la escena
